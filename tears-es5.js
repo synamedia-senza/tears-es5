@@ -1,18 +1,18 @@
 const ENCRYPTED_TEST_VIDEO = "https://storage.googleapis.com/wvmedia/cenc/h264/tears/tears.mpd";
 
 window.addEventListener("load", function() {
-  hs.init().then(function() {
-    hs.uiReady();
+  senza.init().then(function() {
+    senza.uiReady();
   });
 });
 
 document.addEventListener("keydown", function(event) {
-  hs.lifecycle.getState().then(function(currentState) {
+  senza.lifecycle.getState().then(function(currentState) {
     if (currentState === "background" || currentState === "inTransitionToBackground") {
-      hs.lifecycle.moveToForeground();
+      senza.lifecycle.moveToForeground();
     } else {
-      hs.remotePlayer.load(ENCRYPTED_TEST_VIDEO).then(function() {
-        hs.remotePlayer.play();
+      senza.remotePlayer.load(ENCRYPTED_TEST_VIDEO).then(function() {
+        senza.remotePlayer.play();
       });
     }
   });
