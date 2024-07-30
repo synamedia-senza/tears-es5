@@ -1,4 +1,5 @@
 const ENCRYPTED_TEST_VIDEO = "https://storage.googleapis.com/wvmedia/cenc/h264/tears/tears.mpd";
+const WIDEVINE = "https://proxy.uat.widevine.com/proxy";
 
 window.addEventListener("load", function() {
   senza.init().then(function() {
@@ -38,10 +39,11 @@ hs.remotePlayer.addEventListener("license-request", function(event) {
 function getLicenseFromServer(licenseRequest, callback) {
   console.log("Requesting license From Widevine server");
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://proxy.uat.widevine.com/proxy", true);
+  xhr.open("POST", WIDEVINE, true);
   xhr.setRequestHeader("Content-Type", "application/octet-stream");
+  xhr.responseType = "arraybuffer";
   xhr.onload = function() {
-    callback({code: xhr.status, responseBody: this.response});
+    callback({code: xhr.status, responseBody: xhr.response});
   };
   xhr.send(licenseRequest);
 }
